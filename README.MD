@@ -37,3 +37,58 @@ Durante o processo de versionamento, os arquivos podem passar por diferentes est
 
 ---
 
+## 2. Comandos
+
+### 2.1 ```git add```
+
+Adiciona alterações à Staging Area.
+
+```git add arquivo.txt```
+
+Adicionar todos os arquivos:
+
+* git add .
+* git add --all
+* git add -a (abreviação da opção a cima)
+
+> git add . adiciona alterações da árvore a partir do diretório atual. git add --all é mais abrangente e considera alterações em todo o repositório.
+
+---
+
+### 2.2 ```git commit```
+
+Cria um novo ponto no histórico do projeto.
+
+```git commit -m "Adiciona sistema de login"```
+
+Um commit possui, entre outras informações:
+
+* Identificador (hash);
+* Autor;
+* Data;
+* Mensagem;
+* Alterações registradas.
+
+#### 2.2.1 Alterar a mensagem do commit:
+
+git commit --amend -m "Nova mensagem"
+
+#### 2.2.2. Adicionar um arquivo que foi esquecido no último commit:
+
+```
+git add arquivo.txt
+git commit --amend --no-edit
+```
+
+O --no-edit mantém a mensagem anterior.
+
+#### 2.2.3. Sem --no-edit:
+
+```git commit --amend```
+
+O Git abrirá o editor configurado para permitir alterar a mensagem.
+
+> Para usar VS Code como editor padrão:
+> ```git config --global core.editor "code --wait"```
+
+---
