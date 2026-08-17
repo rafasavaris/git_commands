@@ -319,3 +319,45 @@ git commit
 Cancelar o merge: ```git merge --abort```
 
 ---
+
+## 4. Repositórios remotos
+
+`origin` é o nome padrão dado ao repositório remoto quando você faz um clone. É possível que um repositório local aponte para vários remotos.
+
+Ver repositórios remotos: ```git remote -v```
+
+Adicionar repositório remoto a um local: ```git remote add origin URL```
+
+Alterar URL: ```git remote set-url origin URL```
+
+### 4.1. ```git clone```
+
+Para copiar um repositório remoto: ```git clone URL```
+
+Para escolher o nome da pasta a ser criada: ```git clone URL nome-da-pasta```
+
+O clone traz o repositório e seu histórico para o computador.
+
+### 4.2. ```git push```
+
+Envia commits locais para um repositório remoto: ```git push```
+
+Na primeira vez que enviar uma branch: ```git push --set-upstream origin nome-da-branch``` ou ```git push -u origin nome-da-branch```
+
+### 4.3. ```git pull```
+
+Busca alterações do repositório remoto e tenta integrá-las à branch atual: ```git pull```
+
+> Conceitualmente: ```git pull ≈ git fetch + git merge```
+
+Pode haver conflitos durante a integração.
+
+### 4.4. ```git fetch```
+
+O ```git fetch``` busca informações e commits do repositório remoto, mas **não altera diretamente sua branch atual**. 
+
+Por exemplo: ```git fetch origin```. Depois você pode analisar as alterações e decidir se quer fazer merge ou rebase.
+
+Buscar uma branch específica: ```git fetch origin nome-da-branch```
+
+---
