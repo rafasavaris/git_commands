@@ -224,3 +224,98 @@ Ele cria um **novo commit** que desfaz as alterações de um commit anterior. Pa
 ```git revert HEAD --no-edit```
 
 ---
+
+## 3. Branches
+
+Uma **branch** é uma ramificação do histórico do projeto. Cada novo commit é criado na branch atual.
+
+### 3.1. Listar branches
+
+```git branch``` ou ```git branch --list```
+
+A branch atual aparece com `*`.
+
+### 3.2. Criar e trocar de branch
+
+Criar: ```git branch nome-da-branch```
+
+Trocar: ```git checkout nome-da-branch```
+
+Forma moderna: ```git switch nome-da-branch```
+
+> Voltar para a branch anterior: ```git switch -```
+
+Criar e trocar ao mesmo tempo: ```git checkout -b nome-da-branch``` ou ```git switch -c nome-da-branch```
+
+> `git switch` foi criado especificamente para trabalhar com branches pois `git checkout` possui funções adicionais, como restaurar arquivos e acessar commits.
+
+### 3.3. Trocar de branch descartando alterações
+
+```git checkout -f nome-da-branch```
+
+Força a troca de branch e descarta alterações locais que impediriam a troca.
+
+### 3.4. Renomear branches
+
+Renomear uma branch: ```git branch -m nome-antigo nome-novo```
+
+Para renomear a branch atual:
+
+```git branch -m novo-nome```
+
+> O nome da branch remota não é alterado com um comando único. Normalmente, renomeia localmente, remove a antiga no remoto e envia a nova.
+
+### 3.5. Deletar branches
+
+Branch local: ```git branch -d nome```
+
+Forçar: ```git branch -D nome```
+
+Branch remota: ```git push --delete origin nome```
+
+Isso remove a referência da branch no repositório remoto.
+
+### 3.6. Consultar commits de uma branch
+
+```git log nome-da-branch```
+
+Também é possível trocar para a branch e executar:
+
+```
+git switch nome-da-branch
+git log
+```
+
+### 3.6. Merge
+
+O `merge` incorpora as alterações de uma branch na branch atual. Se estiver na `main`:
+
+```
+git switch main
+git merge feature
+```
+
+A ideia é trazer as alterações de `feature` para `main`.
+
+**Importante:** o `merge` sempre traz as alterações da branch indicada **para a branch em que está**.
+
+### 3.7. Verificar branches mergeadas
+
+Branches que ainda não foram mergeadas na branch atual: ```git branch --no-merged```
+
+Branches que já foram mergeadas: ```git branch --merged```
+
+### 3.8. Conflitos de merge
+
+Um conflito acontece quando o Git não consegue decidir automaticamente como combinar alterações. 
+
+Depois de resolver manualmente os arquivos:
+
+```
+git add .
+git commit
+```
+
+Cancelar o merge: ```git merge --abort```
+
+---
