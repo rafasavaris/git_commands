@@ -158,3 +158,69 @@ Caso o arquivo já esteja na Stagind Area:
 ```git diff --staged``` ou ```git diff --cached```
 
 ---
+
+### 2.6. Reverter alterações
+
+Restaurar um arquivo para o último commit:
+
+```git restore arquivo.txt```
+
+Para restaurar todos:
+
+```git restore .```
+
+> Isso descarta alterações não commitadas nesses arquivos.
+
+### 2.7. Retirar um arquivo do `git add`
+
+Se quer retirar o arquivo da Staging Area:
+
+```git restore --staged arquivo.txt```
+
+Também é possível usar:
+
+```git rm --cached arquivo.txt```
+
+Porém, `git rm --cached` tem outro uso importante: ele remove o arquivo do rastreamento do Git, mantendo o arquivo fisicamente no computador.
+
+Para remover todos recursivamente do rastreamento:
+
+```git rm --cached -r .```
+
+### 2.8. ```git reset```
+
+O `reset` move o `HEAD` para outro ponto do histórico.
+
+#### Soft
+
+```git reset --soft HEAD~1```
+
+Volta um commit, mas mantém as alterações na **Staging Area**.
+
+#### Mixed
+
+```git reset --mixed HEAD~1```
+
+Volta um commit e mantém as alterações no Working Directory, mas tira da Staging Area.
+
+> `HEAD~1` significa um commit antes do atual.
+
+#### Hard
+
+```git reset --hard HEAD~1```
+
+Volta um commit e descarta as alterações daquele commit no Working Directory e na Staging Area.
+
+---
+
+### 2.9. ```git revert```
+
+Diferente do `reset`, o `revert` **não apaga o commit anterior do histórico**.
+
+```git revert HEAD```
+
+Ele cria um **novo commit** que desfaz as alterações de um commit anterior. Para aceitar automaticamente a mensagem padrão:
+
+```git revert HEAD --no-edit```
+
+---
