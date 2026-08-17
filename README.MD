@@ -361,3 +361,75 @@ Por exemplo: ```git fetch origin```. Depois você pode analisar as alterações 
 Buscar uma branch específica: ```git fetch origin nome-da-branch```
 
 ---
+
+## 5. Rebase
+
+```git rebase main```
+
+Estando em uma branch, esse comando pega os commits dela e os reaplica sobre a versão mais recente da `main`. Pode haver conflitos e, após resolver eles:
+
+```
+git add .
+git rebase --continue
+```
+
+Para cancelar: ```git rebase --abort```
+
+### 5.1. Pull com rebase
+
+```git pull --rebase```
+
+Atualiza as referências do remoto e reaplica seus commits locais sobre a versão mais recente da branch remota. Isso evita criar um commit de merge desnecessário em muitos fluxos de trabalho.
+
+### 5.2. Rebase interativo
+
+```git rebase -i HEAD~N```
+
+Permite editar os últimos N commits. É possível:
+
+* Reordenar commits.
+* Alterar mensagens.
+* Juntar commits.
+* Remover commits.
+
+Algumas opções:
+
+* pick: mantém o commit;
+* reword: altera a mensagem;
+* edit: pausa para editar;
+* squash: junta com o commit anterior;
+* fixup: junta sem manter a mensagem;
+* drop: remove o commit.
+
+---
+
+## 6. Cherry-pick
+
+Permite pegar um commit específico de outra branch e aplicá-lo na branch atual: ```git cherry-pick HASH```
+
+---
+
+## 7. ```git stash```
+
+O `stash` guarda temporariamente alterações não commitadas. É útil quando está trabalhando em algo, mas precisa trocar de branch sem querer fazer um commit ainda. As alterações são guardadas e o Working Directory volta para um estado limpo.
+
+Ver stashes: ```git stash list```
+
+Exemplo, onde id = 0 é o mais recente:
+
+```
+stash@{0}
+stash@{1}
+```
+
+Aplicar o stash mais recente: ```git stash apply```
+
+Aplicar um stash específico: ```git stash apply stash@{1}```
+
+Aplicar e remover da lista: ```git stash pop```
+
+Remover o stash mais recente: ```git stash drop```
+
+Criar uma branch a partir de um stash: ```git stash branch nome-da-branch```
+
+Criar a partir de um stash específico: ```git stash branch nome-da-branch stash@{1}```
