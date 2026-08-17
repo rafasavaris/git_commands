@@ -92,3 +92,69 @@ O Git abrirá o editor configurado para permitir alterar a mensagem.
 > ```git config --global core.editor "code --wait"```
 
 ---
+
+### 2.3. Configuração do usuário
+
+> É interessante que seja o mesmo nome e e-mail do GitHub
+
+Configurar nome:
+
+```git config --global user.name "Seu Nome"```
+
+Configurar e-mail:
+
+```git config --global user.email "seu@email.com"```
+
+Visualizar as configurações:
+
+```git config --global --list```
+
+### 2.4. Histórico de commits
+
+Mostra o histórico:
+
+```git log```
+
+Normalmente apresenta:
+
+* Hash do commit;
+* Autor;
+* Data;
+* Mensagem;
+* `HEAD`, indicando a posição atual.
+
+O histórico aparece do commit mais recente para o mais antigo. A forma resumido é:
+
+```git log --oneline```
+
+Além disso, para mostrar os últimos N commits
+
+```git log -n 3```
+
+> Também pode combinar: 
+> ```git log -n 3 --oneline```
+
+Para mostrar alterações de cada commit
+
+```git log --patch``` ou ```git log -p```
+
+Já para mostrar quais arquivos foram alterados e estatísticas de adições e remoções: 
+
+```git log --stat```
+
+---
+
+
+
+
+### 2.5. ```git diff```
+
+Compara o estado atual dos arquivos com a última versão registrada no Git.
+
+```git diff```
+
+Caso o arquivo já esteja na Stagind Area:
+
+```git diff --staged``` ou ```git diff --cached```
+
+---
