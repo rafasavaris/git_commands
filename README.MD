@@ -157,6 +157,8 @@ Caso o arquivo já esteja na Stagind Area:
 
 ```git diff --staged``` ou ```git diff --cached```
 
+É possível comparar commits também, a partir do código hash: ```git diff HASH1 HASH2```
+
 ---
 
 ### 2.6. Reverter alterações
@@ -433,3 +435,182 @@ Remover o stash mais recente: ```git stash drop```
 Criar uma branch a partir de um stash: ```git stash branch nome-da-branch```
 
 Criar a partir de um stash específico: ```git stash branch nome-da-branch stash@{1}```
+
+---
+
+## 8. Tags
+
+Uma **tag** é uma referência para um commit específico. Diferentemente de uma branch, uma tag normalmente representa um ponto fixo do histórico.
+
+É possível ter **mais de uma tag apontando para o mesmo commit**.
+
+Listar tags: ```git tag``` ou ```git tag -l```
+
+Mostrar descrição: ```git tag -n```
+
+Mostrar detalhes de uma tag: ```git show v1.0```
+
+Comparar tags: ```git diff v1.0 v2.0```
+
+
+### 8.1. Lightweight Tag
+
+Cria uma tag simples: ```git tag v1.0```
+
+Ela aponta para o commit atual.
+
+### 8.2. Annotated Tag
+
+Possui informações adicionais, como autor, data e mensagem.
+
+```git tag -a v1.0 -m "Primeira versão"```
+
+### 8.3. Tags em commits específicos
+
+Tag simples: 
+```git tag v1.0 HASH```
+
+Tag anotada: ```git tag -a v1.0 -m "Primeira versão" HASH```
+
+### 8.4. Enviar tags para o remoto
+
+Uma tag específica: ```git push origin v1.0```
+
+Todas as tags: ```git push --tags```
+
+### 8.5. Deletar tags
+
+Localmente: ```git tag -d v1.0```
+
+Remotamente: ```git push --delete origin v1.0```
+
+### 8.5. Acessar uma versão por tag
+
+```git checkout v1.0```
+
+Isso coloca o repositório naquele ponto do histórico. Nesse caso, você pode ficar em um estado chamado **detached HEAD**, pois o `HEAD` não está apontando para uma branch.
+
+---
+
+## 9. SSH
+
+SSH permite autenticar o computador em serviços como o GitHub sem precisar fornecer senha a cada operação.
+
+Uma chave SSH normalmente possui chave privada e chave pública, onde a chave pública normalmente termina em ```
+.pub```. É possível ter várias chaves SSH.
+
+Para criar uma chave: ```ssh-keygen```
+
+Ela normalmente será armazenada em: ```~/.ssh/```
+
+### 9.1. ssh-agent
+
+O `ssh-agent` pode armazenar chaves carregadas para que não seja necessário fornecê-las novamente durante a sessão.
+
+Adicionar uma chave: ```ssh-add ~/.ssh/nome-da-chave```
+
+A chave **pública** deve ser cadastrada no serviço, como o GitHub.
+
+## 10. GitHub
+
+### 10.1. Pull Request
+
+Um **Pull Request (PR)** é uma solicitação para que alterações de uma branch sejam revisadas e incorporadas a outra branch. O PR permite:
+
+* Revisar código.
+* Fazer comentários.
+* Discutir alterações.
+* Executar testes/CI.
+* Aprovar ou solicitar mudanças.
+* Fazer merge.
+
+### 10.2. Issues
+
+**Issues** são utilizadas para registrar tarefas, bugs, melhorias e outras demandas. Uma issue pode receber:
+
+* Labels.
+* Assignees.
+* Comentários.
+* Milestones.
+
+### 10.3. Milestones
+
+**Milestones** são marcos utilizados para agrupar tarefas relacionadas a um objetivo. Podem ser usadas para organizar metas e versões do projeto, além de linkar com Issues
+
+## Force Push
+
+O comando ```git push --force``` força o remoto a aceitar o histórico local. Isso pode sobrescrever alterações que estão no remoto.
+
+Uma opção mais segura é: ```git push --force-with-lease```
+
+O `--force-with-lease` verifica se o remoto ainda está no estado esperado antes de sobrescrever.
+
+## 11. ```git bisect```
+
+É uma ferramenta para encontrar qual commit introduziu um problema. Ela utiliza uma **busca binária** entre um commit que funciona e outro que não funciona. O Git testa commits intermediários para encontrar onde o problema apareceu.
+
+Iniciar: ```git bisect start```
+
+Marcar um commit como ruim: ```git bisect bad H```
+
+Marcar um commit como bom: ```git bisect good A```
+
+O Git selecionará um commit intermediário, até identificar o problema. Depois de encontrar o commit: ```git bisect reset```
+
+## 12. Ignorar alterações de um arquivo localmente
+
+```git update-index --skip-worktree arquivo```
+
+Isso informa ao Git para evitar considerar alterações locais nesse arquivo em determinadas operações.
+
+Para voltar ao comportamento normal: ```git update-index --no-skip-worktree arquivo```
+
+> Isso **não é a mesma coisa que `.gitignore`**. O arquivo continua sendo rastreado pelo Git.
+
+## 13. Arquivos não rastreados
+
+Para remover arquivos não rastreados: ```git clean -f```
+
+Para visualizar primeiro o que seria removido: ```git clean -n```
+
+## 13. Aliases
+
+Aliases permitem criar abreviações para comandos: ```git config --global alias.abv cmd```, onde "abv" é a abreviação desejada para o comando "cmd".
+
+Para remover alias: ```git config --global --unset alias.abv```
+
+---
+
+## 14. Procurar branches
+
+Para procurar branches cujo nome contenha determinado texto: ```git branch | grep algo```
+
+---
+
+## 15. Tabela rápida de comandos
+
+| Comando           | Função                                       |
+| ----------------- | -------------------------------------------- |
+| `git init`        | Inicializa um repositório                    |
+| `git clone`       | Clona um repositório                         |
+| `git status`      | Mostra o estado atual                        |
+| `git add`         | Adiciona alterações à Staging Area           |
+| `git commit`      | Cria um commit                               |
+| `git push`        | Envia commits para o remoto                  |
+| `git pull`        | Busca e integra alterações do remoto         |
+| `git fetch`       | Busca informações do remoto sem integrar     |
+| `git log`         | Mostra o histórico                           |
+| `git diff`        | Mostra diferenças                            |
+| `git branch`      | Gerencia/lista branches                      |
+| `git switch`      | Troca de branch                              |
+| `git merge`       | Junta branches                               |
+| `git rebase`      | Reaplica commits sobre outra base            |
+| `git cherry-pick` | Traz um commit específico                    |
+| `git stash`       | Guarda alterações temporariamente            |
+| `git tag`         | Cria referências para versões                |
+| `git revert`      | Desfaz alterações criando novo commit        |
+| `git reset`       | Move o histórico/HEAD                        |
+| `git clean`       | Remove arquivos não rastreados               |
+| `git bisect`      | Encontra o commit que introduziu um problema |
+| `git remote`      | Gerencia repositórios remotos                |
+| `git config`      | Configura o Git                              |
