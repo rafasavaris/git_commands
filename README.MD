@@ -91,6 +91,8 @@ O Git abrirá o editor configurado para permitir alterar a mensagem.
 > Para usar VS Code como editor padrão:
 > ```git config --global core.editor "code --wait"```
 
+Navegar entre commits: ```git checkout hash```
+
 ---
 
 ### 2.3. Configuração do usuário
