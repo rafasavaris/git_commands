@@ -10,15 +10,13 @@ Git é um sistema de controle de versão distribuído, que permite:
 * Trabalhar em equipe;
 * Sincronizar alterações entre repositórios locais e remotos.
 
-### 1.1 Distribuído x Centralizado
+### 1.1. Distribuído x Centralizado
 
-Os sistemas distribuídos são caracterizados por cada desenvolvedor possuir uma cópia completa do repositório, sendo possível trabalhar offline. Cada cópia possui o histórico do projeto, assim, 
-não depende constantemente de um servidor central.
+Os sistemas distribuídos são caracterizados por cada desenvolvedor possuir uma cópia completa do repositório, sendo possível trabalhar offline. Cada cópia possui o histórico do projeto, assim, não depende constantemente de um servidor central.
 
 Já os sistemas centralizados possuem um servidor central com o repositório principal, onde os desenvolvedores dependem mais desse servidor. Em geral, há uma única fonte central de histórico.
 
 Dessa forma, o Git é um sistema de controle de versão **distribuído**.
-
 
 ### 1.2. Composição de um projeto Git
 
@@ -37,9 +35,9 @@ Durante o processo de versionamento, os arquivos podem passar por diferentes est
 
 ---
 
-## 2. Comandos
+## 2. Comandos principais
 
-### 2.1 ```git add```
+### 2.1. ```git add```
 
 Adiciona alterações à Staging Area.
 
@@ -47,15 +45,13 @@ Adiciona alterações à Staging Area.
 
 Adicionar todos os arquivos:
 
-* git add .
-* git add --all
-* git add -a (abreviação da opção a cima)
+* ```git add .```
+* ```git add --all```
+* ```git add -a (abreviação da opção a cima)```
 
 > git add . adiciona alterações da árvore a partir do diretório atual. git add --all é mais abrangente e considera alterações em todo o repositório.
 
----
-
-### 2.2 ```git commit```
+### 2.2. ```git commit```
 
 Cria um novo ponto no histórico do projeto.
 
@@ -69,11 +65,9 @@ Um commit possui, entre outras informações:
 * Mensagem;
 * Alterações registradas.
 
-#### 2.2.1 Alterar a mensagem do commit:
+Alterar a mensagem do commit: ```git commit --amend -m "Nova mensagem"```
 
-git commit --amend -m "Nova mensagem"
-
-#### 2.2.2. Adicionar um arquivo que foi esquecido no último commit:
+Adicionar um arquivo que foi esquecido no último commit:
 
 ```
 git add arquivo.txt
@@ -82,11 +76,7 @@ git commit --amend --no-edit
 
 O --no-edit mantém a mensagem anterior.
 
-#### 2.2.3. Sem --no-edit:
-
-```git commit --amend```
-
-O Git abrirá o editor configurado para permitir alterar a mensagem.
+Sem --no-edit, o Git abrirá o editor configurado para permitir alterar a mensagem.
 
 > Para usar VS Code como editor padrão:
 > ```git config --global core.editor "code --wait"```
@@ -99,23 +89,15 @@ Navegar entre commits: ```git checkout hash```
 
 > É interessante que seja o mesmo nome e e-mail do GitHub
 
-Configurar nome:
+Configurar nome: ```git config --global user.name "Seu Nome"```
 
-```git config --global user.name "Seu Nome"```
+Configurar e-mail: ```git config --global user.email "seu@email.com"```
 
-Configurar e-mail:
-
-```git config --global user.email "seu@email.com"```
-
-Visualizar as configurações:
-
-```git config --global --list```
+Visualizar as configurações: ```git config --global --list```
 
 ### 2.4. Histórico de commits
 
-Mostra o histórico:
-
-```git log```
+Mostra o histórico: ```git log```
 
 Normalmente apresenta:
 
@@ -125,29 +107,16 @@ Normalmente apresenta:
 * Mensagem;
 * `HEAD`, indicando a posição atual.
 
-O histórico aparece do commit mais recente para o mais antigo. A forma resumido é:
+O histórico aparece do commit mais recente para o mais antigo. A forma resumido é: ```git log --oneline```
 
-```git log --oneline```
-
-Além disso, para mostrar os últimos N commits
-
-```git log -n 3```
+Além disso, para mostrar os últimos N commits: ```git log -n 3```
 
 > Também pode combinar: 
 > ```git log -n 3 --oneline```
 
-Para mostrar alterações de cada commit
+Para mostrar alterações de cada commit: ```git log --patch``` ou ```git log -p```
 
-```git log --patch``` ou ```git log -p```
-
-Já para mostrar quais arquivos foram alterados e estatísticas de adições e remoções: 
-
-```git log --stat```
-
----
-
-
-
+Já para mostrar quais arquivos foram alterados e estatísticas de adições e remoções: ```git log --stat```
 
 ### 2.5. ```git diff```
 
@@ -155,53 +124,39 @@ Compara o estado atual dos arquivos com a última versão registrada no Git.
 
 ```git diff```
 
-Caso o arquivo já esteja na Stagind Area:
-
-```git diff --staged``` ou ```git diff --cached```
+Caso o arquivo já esteja na Stagind Area: ```git diff --staged``` ou ```git diff --cached```
 
 É possível comparar commits também, a partir do código hash: ```git diff HASH1 HASH2```
 
----
-
 ### 2.6. Reverter alterações
 
-Restaurar um arquivo para o último commit:
+Restaurar um arquivo para o último commit: ```git restore arquivo.txt```
 
-```git restore arquivo.txt```
-
-Para restaurar todos:
-
-```git restore .```
+Para restaurar todos: ```git restore .```
 
 > Isso descarta alterações não commitadas nesses arquivos.
 
 ### 2.7. Retirar um arquivo do `git add`
 
-Se quer retirar o arquivo da Staging Area:
+Se quer retirar o arquivo da Staging Area: ```git restore --staged arquivo.txt```
 
-```git restore --staged arquivo.txt```
-
-Também é possível usar:
-
-```git rm --cached arquivo.txt```
+Também é possível usar: ```git rm --cached arquivo.txt```
 
 Porém, `git rm --cached` tem outro uso importante: ele remove o arquivo do rastreamento do Git, mantendo o arquivo fisicamente no computador.
 
-Para remover todos recursivamente do rastreamento:
-
-```git rm --cached -r .```
+Para remover todos recursivamente do rastreamento: ```git rm --cached -r .```
 
 ### 2.8. ```git reset```
 
 O `reset` move o `HEAD` para outro ponto do histórico.
 
-#### Soft
+#### 2.8.1. Soft
 
 ```git reset --soft HEAD~1```
 
 Volta um commit, mas mantém as alterações na **Staging Area**.
 
-#### Mixed
+#### 2.8.2. Mixed
 
 ```git reset --mixed HEAD~1```
 
@@ -209,7 +164,7 @@ Volta um commit e mantém as alterações no Working Directory, mas tira da Stag
 
 > `HEAD~1` significa um commit antes do atual.
 
-#### Hard
+#### 2.8.3. Hard
 
 ```git reset --hard HEAD~1```
 
@@ -223,9 +178,7 @@ Diferente do `reset`, o `revert` **não apaga o commit anterior do histórico**.
 
 ```git revert HEAD```
 
-Ele cria um **novo commit** que desfaz as alterações de um commit anterior. Para aceitar automaticamente a mensagem padrão:
-
-```git revert HEAD --no-edit```
+Ele cria um **novo commit** que desfaz as alterações de um commit anterior. Para aceitar automaticamente a mensagem padrão: ```git revert HEAD --no-edit```
 
 ---
 
@@ -233,15 +186,9 @@ Ele cria um **novo commit** que desfaz as alterações de um commit anterior. Pa
 
 Uma **branch** é uma ramificação do histórico do projeto. Cada novo commit é criado na branch atual.
 
-### 3.1. Listar branches
+Listar branches: ```git branch``` ou ```git branch --list```. A branch atual aparece com `*`.
 
-```git branch``` ou ```git branch --list```
-
-A branch atual aparece com `*`.
-
-### 3.2. Criar e trocar de branch
-
-Criar: ```git branch nome-da-branch```
+Criar e trocar de branch: Criar: ```git branch nome-da-branch```
 
 Trocar: ```git checkout nome-da-branch```
 
@@ -253,44 +200,29 @@ Criar e trocar ao mesmo tempo: ```git checkout -b nome-da-branch``` ou ```git sw
 
 > `git switch` foi criado especificamente para trabalhar com branches pois `git checkout` possui funções adicionais, como restaurar arquivos e acessar commits.
 
-### 3.3. Trocar de branch descartando alterações
-
-```git checkout -f nome-da-branch```
-
-Força a troca de branch e descarta alterações locais que impediriam a troca.
-
-### 3.4. Renomear branches
+Trocar de branch descartando alterações: ```git checkout -f nome-da-branch```. Ele força a troca de branch e descarta alterações locais que impediriam a troca.
 
 Renomear uma branch: ```git branch -m nome-antigo nome-novo```
 
-Para renomear a branch atual:
+Renomear a branch atual: ```git branch -m novo-nome```
 
-```git branch -m novo-nome```
-
-> O nome da branch remota não é alterado com um comando único. Normalmente, renomeia localmente, remove a antiga no remoto e envia a nova.
-
-### 3.5. Deletar branches
-
-Branch local: ```git branch -d nome```
-
-Forçar: ```git branch -D nome```
-
-Branch remota: ```git push --delete origin nome```
-
-Isso remove a referência da branch no repositório remoto.
-
-### 3.6. Consultar commits de uma branch
-
-```git log nome-da-branch```
-
-Também é possível trocar para a branch e executar:
-
+Consultar commits de uma branch: ```git log nome-da-branch```. Também é possível trocar para a branch e executar:
 ```
 git switch nome-da-branch
 git log
 ```
 
-### 3.6. Merge
+> O nome da branch remota não é alterado com um comando único. Normalmente, renomeia localmente, remove a antiga no remoto e envia a nova.
+
+### 3.1. Deletar branches
+
+Branch local: ```git branch -d nome```
+
+Forçar: ```git branch -D nome```
+
+Branch remota: ```git push --delete origin nome```. Isso remove a referência da branch no repositório remoto.
+
+### 3.2. Merge
 
 O `merge` incorpora as alterações de uma branch na branch atual. Se estiver na `main`:
 
@@ -303,17 +235,15 @@ A ideia é trazer as alterações de `feature` para `main`.
 
 **Importante:** o `merge` sempre traz as alterações da branch indicada **para a branch em que está**.
 
-### 3.7. Verificar branches mergeadas
+### 3.3. Verificar branches mergeadas
 
 Branches que ainda não foram mergeadas na branch atual: ```git branch --no-merged```
 
 Branches que já foram mergeadas: ```git branch --merged```
 
-### 3.8. Conflitos de merge
+### 3.4. Conflitos de merge
 
-Um conflito acontece quando o Git não consegue decidir automaticamente como combinar alterações. 
-
-Depois de resolver manualmente os arquivos:
+Um conflito acontece quando o Git não consegue decidir automaticamente como combinar alterações. Depois de resolver manualmente os arquivos:
 
 ```
 git add .
@@ -454,7 +384,6 @@ Mostrar detalhes de uma tag: ```git show v1.0```
 
 Comparar tags: ```git diff v1.0 v2.0```
 
-
 ### 8.1. Lightweight Tag
 
 Cria uma tag simples: ```git tag v1.0```
@@ -513,6 +442,8 @@ Adicionar uma chave: ```ssh-add ~/.ssh/nome-da-chave```
 
 A chave **pública** deve ser cadastrada no serviço, como o GitHub.
 
+---
+
 ## 10. GitHub
 
 ### 10.1. Pull Request
@@ -539,7 +470,7 @@ Um **Pull Request (PR)** é uma solicitação para que alterações de uma branc
 
 **Milestones** são marcos utilizados para agrupar tarefas relacionadas a um objetivo. Podem ser usadas para organizar metas e versões do projeto, além de linkar com Issues
 
-## Force Push
+### 10.4. Force Push
 
 O comando ```git push --force``` força o remoto a aceitar o histórico local. Isso pode sobrescrever alterações que estão no remoto.
 
@@ -575,7 +506,7 @@ Para remover arquivos não rastreados: ```git clean -f```
 
 Para visualizar primeiro o que seria removido: ```git clean -n```
 
-## 13. Aliases
+## 14. Aliases
 
 Aliases permitem criar abreviações para comandos: ```git config --global alias.abv cmd```, onde "abv" é a abreviação desejada para o comando "cmd".
 
@@ -583,13 +514,13 @@ Para remover alias: ```git config --global --unset alias.abv```
 
 ---
 
-## 14. Procurar branches
+## 15. Procurar branches
 
 Para procurar branches cujo nome contenha determinado texto: ```git branch | grep algo```
 
 ---
 
-## 15. Tabela rápida de comandos
+## 16. Tabela rápida de comandos
 
 | Comando           | Função                                       |
 | ----------------- | -------------------------------------------- |
@@ -616,3 +547,5 @@ Para procurar branches cujo nome contenha determinado texto: ```git branch | gre
 | `git bisect`      | Encontra o commit que introduziu um problema |
 | `git remote`      | Gerencia repositórios remotos                |
 | `git config`      | Configura o Git                              |
+
+---
